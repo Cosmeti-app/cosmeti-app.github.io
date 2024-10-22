@@ -164,89 +164,89 @@ document
   .getElementById("downloadButton")
   .addEventListener("click", downloadSkin);
 
-  async function fetchClothingData() {
-    const selectedParts = new Set(); // Set to keep track of selected parts
-  
-    try {
-      const response = await fetch(
-        "https://docs.google.com/spreadsheets/d/1sEQPiqXHtTt6RHwgAXYKnmMlBYn-v7oPUKHT3UK3c8I/gviz/tq?tqx=out:json"
-      );
-      const data = await response.text();
-      const jsonData = JSON.parse(data.match(/.*?({.*}).*/)[1]); // Extract JSON safely
-  
-      const clothingParts = jsonData.table.rows;
-  
-      partList.innerHTML = "";
-  
-      clothingParts.forEach((part) => {
-        const name = part.c[3]?.v;
-        const author = part.c[4]?.v;
-        const icon = part.c[1]?.v;
-        const file = part.c[5]?.v; // Part PNG file
-  
-        if (name && author && icon && file) {
-          const partItem = document.createElement("div");
-          partItem.classList.add("part-item");
-          partItem.innerHTML = `
-            <img src="${icon}" alt="${name}">
-            <div class="part-title">${name}</div>
-            <div class="part-author">${author}</div>
-          `;
-          partList.appendChild(partItem);
-  
-          // On click, overlay the part onto the skin and update the selected parts
-          partItem.addEventListener("click", () => {
-            if (!skinUploaded) {
-              alert("Please upload a skin first.");
-              return;
-            }
-  
-            if (selectedParts.has(file)) {
-              // Unselect the part
-              partItem.classList.remove("selected");
-              selectedParts.delete(file);
-  
-              // Redraw the skin without the unselected part
-              redrawSkin();
-            } else {
-              // Select the part
-              overlayPartOnSkin(file);
-              partItem.classList.add("selected");
-  
-              // Add the part to the set
-              selectedParts.add(file);
-            }
-          });
-        }
-      });
-    } catch (error) {
-      console.error("Error fetching clothing data:", error);
-    }
-  
-    function redrawSkin() {
-      // Clear the canvas
-      const ctx = skinCanvas.getContext("2d");
-      ctx.clearRect(0, 0, skinCanvas.width, skinCanvas.height);
-  
-      // Redraw the base skin
-      ctx.drawImage(uploadedSkin, 0, 0);
-  
-      // Redraw all selected parts
-      selectedParts.forEach((partUrl) => {
-        const partImage = new Image();
-        partImage.crossOrigin = "anonymous"; // Set crossOrigin attribute
-        partImage.src = partUrl;
-        partImage.onload = function () {
-          ctx.drawImage(partImage, 0, 0);
-        };
-      });
-  
-      // Update SkinViewer skin
-      updateSkinViewer();
-    }
+async function fetchClothingData() {
+  const selectedParts = new Set(); // Set to keep track of selected parts
+
+  try {
+    const response = await fetch(
+      "https://docs.google.com/spreadsheets/d/1sEQPiqXHtTt6RHwgAXYKnmMlBYn-v7oPUKHT3UK3c8I/gviz/tq?tqx=out:json"
+    );
+    const data = await response.text();
+    const jsonData = JSON.parse(data.match(/.*?({.*}).*/)[1]); // Extract JSON safely
+
+    const clothingParts = jsonData.table.rows;
+
+    partList.innerHTML = "";
+
+    clothingParts.forEach((part) => {
+      const name = part.c[3]?.v;
+      const author = part.c[4]?.v;
+      const icon = part.c[1]?.v;
+      const file = part.c[5]?.v; // Part PNG file
+
+      if (name && author && icon && file) {
+        const partItem = document.createElement("div");
+        partItem.classList.add("part-item");
+        partItem.innerHTML = `
+          <img src="${icon}" alt="${name}">
+          <div class="part-title">${name}</div>
+          <div class="part-author">${author}</div>
+        `;
+        partList.appendChild(partItem);
+
+        // On click, overlay the part onto the skin and update the selected parts
+        partItem.addEventListener("click", () => {
+          if (!skinUploaded) {
+            alert("Please upload a skin first.");
+            return;
+          }
+
+          if (selectedParts.has(file)) {
+            // Unselect the part
+            partItem.classList.remove("selected");
+            selectedParts.delete(file);
+
+            // Redraw the skin without the unselected part
+            redrawSkin();
+          } else {
+            // Select the part
+            overlayPartOnSkin(file);
+            partItem.classList.add("selected");
+
+            // Add the part to the set
+            selectedParts.add(file);
+          }
+        });
+      }
+    });
+  } catch (error) {
+    console.error("Error fetching clothing data:", error);
   }
-  
-  fetchClothingData();
+
+  function redrawSkin() {
+    // Clear the canvas
+    const ctx = skinCanvas.getContext("2d");
+    ctx.clearRect(0, 0, skinCanvas.width, skinCanvas.height);
+
+    // Redraw the base skin
+    ctx.drawImage(uploadedSkin, 0, 0);
+
+    // Redraw all selected parts
+    selectedParts.forEach((partUrl) => {
+      const partImage = new Image();
+      partImage.crossOrigin = "anonymous"; // Set crossOrigin attribute
+      partImage.src = partUrl;
+      partImage.onload = function () {
+        ctx.drawImage(partImage, 0, 0);
+      };
+    });
+
+    // Update SkinViewer skin
+    updateSkinViewer();
+  }
+}
+
+fetchClothingData();
 
 // Preview button functionality: Opens Blockbench with the skin
 previewButton.addEventListener("click", () => {
@@ -258,5 +258,12 @@ previewButton.addEventListener("click", () => {
 
 // Ensure the DOM is fully loaded before handling file uploads
 document.addEventListener("DOMContentLoaded", function () {
+  const skinViewer = new skinview3d.SkinViewer({
+    canvas: document.getElementById("skin_container"),
+    width: 300,
+    height: 400,
+    skin: "https://example.com/path/to/skin.png" // Replace with your skin URL
+  });
+
   // Your existing code for handling file uploads or other initializations
 });
