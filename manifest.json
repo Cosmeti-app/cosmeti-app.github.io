@@ -1,0 +1,14 @@
+{
+    "name": "Cosmeti - Skin Customizer",
+    "short_name": "Cosmeti",
+    "description": "A new and revolutionary way to customize your skin.",
+    "start_url": "/",
+    "theme_color": "#ff4081",
+    "background_color": "#ffc107",
+    "display": "standalone",
+    "icons": [
+        {   "src": "cosmeti.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        }]
+  }

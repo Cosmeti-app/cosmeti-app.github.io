@@ -1,0 +1,375 @@
+@font-face {
+  font-family: 'Minecraft';
+  src: url('../node_modules/skinview3d/assets/minecraft.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: 'Minecraft', Arial, sans-serif;
+  background: #2e2e2e;
+  color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background: linear-gradient(135deg, #ffc107, #ff4081);
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+header h1 {
+  font-size: 28px;
+  margin: 0;
+  text-align: center;
+  color: #333;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  background-color: #1e1e1e;
+  padding: 10px 0;
+}
+
+nav a {
+  color: #f0f0f0;
+  text-decoration: none;
+  margin: 0 5px;
+  font-size: 18px;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+nav a:hover {
+  background-color: rgba(80, 80, 80, 0.2);
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  padding: 40px;
+}
+
+.content {
+  background-color: rgba(46, 46, 46, 0.9);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  width: 80%;
+  max-width: 1000px;
+}
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.drop-zone {
+  border: 2px dashed #ffc107;
+  padding: 20px;
+  margin-top: 10px;
+  border-radius: 10px;
+  background-color: #333;
+  color: #bbb;
+  cursor: pointer;
+}
+
+.drop-zone.dragover {
+  border-color: #ff4081;
+}
+
+#partList {
+  margin-top: 20px;
+  max-height: 250px;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 10px;
+  background-color: #1e1e1e;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.part-item {
+  text-align: center;
+  color: #f0f0f0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.part-item img {
+  width: 70px;
+  height: 120px;
+  border-radius: 5px;
+  transition: transform 0.3s ease;
+}
+
+.part-item:hover img {
+  transform: rotate(5deg);
+}
+
+.part-title,
+.part-author {
+  transition: color 0.3s ease;
+  text-align: center;
+}
+
+.part-item:hover .part-title {
+  color: #ffc107;
+}
+
+.part-author {
+  font-size: 12px;
+  font-style: italic;
+}
+
+.part-item:hover .part-author {
+  color: #ff4081;
+}
+
+.part-item.selected {
+  background-color: rgba(255, 193, 7, 0.397);
+  box-shadow: 0 0 10px rgba(255, 88, 185, 0.8);
+  width: 80%;
+  height: 90%;
+}
+
+#editor-frame {
+  width: 100%;
+  height: 500px;
+  border: none;
+  margin-top: 20px;
+  display: none;
+}
+
+#searchInput {
+  margin-top: 20px;
+  padding: 10px;
+  width: 95%;
+  border: 1px solid #ffc107;
+  border-radius: 5px;
+  background-color: #1b1b1b;
+  color: #f0f0f0;
+  align-content: center;
+  font-family: 'Minecraft', Arial, sans-serif;
+}
+
+#previewButton {
+  margin-top: 10px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #1e93d9;
+  color: #333;
+  cursor: pointer;
+  width: 100%;
+}
+
+#previewButton:hover {
+  background-color: #5b84af;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #1e1e1e;
+  color: #f0f0f0;
+  margin-top: 100px;
+}
+
+.animate-gradient-text {
+  font-size: 66px;
+  margin-bottom: -15px;
+  margin-top: -20px;
+  text-align: center;
+  font-weight: 900;
+  background-image: linear-gradient(120deg, #ffffff, #d5f9ff, #ffffff);
+  background-size: 200%;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: animated-gradient 5s ease-in-out infinite;
+}
+
+@keyframes animated-gradient {
+  0%,
+  100% {
+    background-position: 0 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+.download-btn {
+  background-color: #4caf50;
+  color: white;
+  margin-top: 10px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.download-btn:hover {
+  background-color: #45a049;
+}
+
+.reload-btn {
+  background-color: #ff3838;
+  color: white;
+  margin-top: 10px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.reload-btn:hover {
+  background-color: #d10000;
+}
+
+.logo {
+  width: 100px;
+  height: auto;
+  vertical-align: middle;
+}
+
+canvas {
+  width: 50%;
+  margin-left: 45%;
+  margin-top: 4%;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 20px;
+  }
+  .content {
+    width: 95%;
+    padding: 10px;
+  }
+  .drop-zone {
+    padding: 15px;
+  }
+  .part-item img {
+    width: 50px;
+    height: 90px;
+  }
+  .part-title,
+  .part-author {
+    font-size: 10px;
+  }
+  #previewButton,
+  #downloadButton {
+    width: 100%;
+    font-size: 14px;
+  }
+}
+
+#skin_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  width: 100%;
+  height: 100%;
+}
+
+@font-face {
+  font-family: 'Minecraft';
+  src: url('node_modules/skinview3d/assets/minecraft.woff2') format('woff2');
+}
+
+/* Base styles for the navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #333;
+  color: #fff;
+}
+
+.navbar a {
+  color: #fff;
+  text-decoration: none;
+  padding: 10px;
+}
+
+/* Mobile responsive styles */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .navbar a {
+    padding: 10px 0;
+    width: 100%;
+    text-align: left;
+  }
+}
+
+/* Base styles for imate-gradient-text */
+.imate-gradient-text {
+  font-size: 2em;
+  background: linear-gradient(to right, #ff7e5f, #feb47b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+/* Mobile responsive styles */
+@media (max-width: 768px) {
+  .imate-gradient-text {
+    font-size: 1.5em; /* Adjust font size for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .imate-gradient-text {
+    font-size: 1.2em; /* Further adjust font size for very small screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .imate-gradient-text {
+    font-size: 1.2em; /* Further adjust font size for very small screens */
+  }
+}
+
+/* Custom scrollbar styles */
+::-webkit-scrollbar {
+  width: 12px; /* Width of the scrollbar */
+  height: 8px; /* Height of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: #ffffff00; /* Background color of the scrollbar track */
+  border-radius: 10px; /* Rounded corners for the track */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ffffff; /* Color of the scrollbar thumb */
+  border-radius: 10px; /* Rounded corners for the thumb */
+  border: 2px solid #f0f0f0; /* Adds a border to create a thin effect */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9b9b9b; /* Color of the scrollbar thumb on hover */
+}
+
+::-webkit-scrollbar-corner {
+  background: #f0f0f0; /* Background color of the scrollbar corner */
+}

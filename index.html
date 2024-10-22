@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="manifest" href="manifest.json"/> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property="og:title" content="Cosmetia - Minecraft Skin Editor" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://jerryeatsbeans.github.io/dev/cosmeti"/>
+    <meta property="og:image" content="cosmeti.png" />
+    <meta
+      property="og:description"
+      content="This isn't your grandmas skin editor. Comseti is a fun and easy to use editor for Minecraft skins like no other."/>
+      <link rel="apple-touch-icon" href="cosmeti.png">
+<link rel="apple-touch-icon" sizes="152x152" href="cosmeti.png">
+<link rel="apple-touch-icon" sizes="180x180" href="cosmeti.png">
+<link rel="apple-touch-icon" sizes="167x167" href="cosmeti.png">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="apple-touch-startup-image" href="cosmeti.png">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<meta name="apple-mobile-web-app-title" content="cosmeti">
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+    
+<meta name="theme-color" content="#ff4081" />
+    <link rel="icon" href="cosmeti.png" type="image/png" />
+    <title>cosmeti - Minecraft Character Customizer</title>
+    <link rel="stylesheet" href="style.css" />
+    <script fetchpriority="high" src="node_modules/skinview3d/bundles/skinview3d.bundle.js"></script>
+  </head>
+  <body>
+    <header>
+      <div class="animate-gradient-text">Cosmeti</div>
+    </header>
+
+    <nav id="navbar">
+      <a href="jerryeatsbeans.github.io/dev/cosmeti">Editor</a>
+      <a href="https://discord.gg/uDQ4bBEBaM">Contribute</a>
+      <a href="https://discord.gg/uDQ4bBEBaM">Artists</a>
+      <a href="youtube.com">Tutorials</a>
+    </nav>
+
+    <div class="container">
+      <div class="content">
+        <h2>Upload & Customize Your Skin</h2>
+
+        <input
+          type="file"
+          id="skinFile"
+          accept="image/png"
+          style="display: none"
+        />
+        <div class="drop-zone" id="dropZone" onclick="document.getElementById('skinFile').click();">
+          Drag and drop your skin / Click to upload
+        </div>
+
+        <input
+          type="text"
+          id="searchInput"
+          class="hidden"
+          placeholder="Search parts..."
+        />
+
+        <div id="partList" class="hidden"></div>
+
+        <div>
+          <button id="previewButton" class="hidden">
+            <img
+              src="https://www.blockbench.net/images/logos/blockbench_logo_text.png"
+              alt="Open Model with Blockbench"
+              class="logo"
+            />
+          </button>
+          <button id="downloadButton" class="download-btn hidden">
+            Download
+          </button>
+          <button id="reloadButton" class="reload-btn hidden">
+            Reload Page (Undo Changes)
+          </button>
+        </div>
+        <canvas id="skinCanvas" class="hidden"></canvas>
+        <canvas id="skin_container" data-engine="three.js r142" width="400" height="700" style="touch-action: none; width: 200px; height: 350px;"></canvas>
+        <iframe id="editor-frame" class="hidden"></iframe>
+      </div>
+    </div>
+
+    <footer>
+      <p>
+        &copy; Cosmeti is not affiliated with Mojang or Blockbench. All rights
+        Reserved
+      </p>
+    </footer>
+
+    <script src="https://unpkg.com/skinview3d@3.1.0/dist/skinview3d.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
