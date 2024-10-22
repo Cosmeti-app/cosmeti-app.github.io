@@ -262,7 +262,7 @@ document.addEventListener("DOMContentLoaded", function () {
     canvas: document.getElementById("skin_container"),
     width: 300,
     height: 400,
-    skin: "https://example.com/path/to/skin.png" // Replace with your skin URL
+    skin: skinCanvas.toDataURL("image/png")
   });
 
   // Your existing code for handling file uploads or other initializations
