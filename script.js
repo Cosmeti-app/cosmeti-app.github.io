@@ -258,12 +258,7 @@ previewButton.addEventListener("click", () => {
 
 // Ensure the DOM is fully loaded before handling file uploads
 document.addEventListener("DOMContentLoaded", function () {
-  const skinViewer = new skinview3d.SkinViewer({
-    canvas: document.getElementById("skin_container"),
-    width: 300,
-    height: 400,
-    skin: skinCanvas.toDataURL("image/png")
-  });
+
 
   // Your existing code for handling file uploads or other initializations
 });
