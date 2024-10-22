@@ -299,12 +299,14 @@ canvas {
   padding: 10px 20px;
   background-color: #333;
   color: #fff;
+ 
 }
 
 .navbar a {
   color: #fff;
   text-decoration: none;
   padding: 10px;
+ 
 }
 
 /* Mobile responsive styles */
@@ -312,39 +314,43 @@ canvas {
   .navbar {
     flex-direction: column;
     align-items: flex-start;
+    padding: 1px 5px;
+    font-size: 1em;
   }
 
   .navbar a {
-    padding: 10px 0;
+    padding: 1px 0;
     width: 100%;
     text-align: left;
   }
 }
 
 /* Base styles for imate-gradient-text */
-.imate-gradient-text {
-  font-size: 2em;
-  background: linear-gradient(to right, #ff7e5f, #feb47b);
+.animate-gradient-text {
+  font-size: 4em;
+  background: linear-gradient(to right, #ffffff, #ffede0, #ffffff, #ffffff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  display: inline-block;
+  
+  text-align: center;
 }
 
 /* Mobile responsive styles */
 @media (max-width: 768px) {
-  .imate-gradient-text {
+  .animate-gradient-text {
     font-size: 1.5em; /* Adjust font size for smaller screens */
+    text-align: center;
   }
 }
 
 @media (max-width: 480px) {
-  .imate-gradient-text {
+  .animate-gradient-text {
     font-size: 1.2em; /* Further adjust font size for very small screens */
   }
 }
 
 @media (max-width: 480px) {
-  .imate-gradient-text {
+  .animate-gradient-text {
     font-size: 1.2em; /* Further adjust font size for very small screens */
   }
 }
