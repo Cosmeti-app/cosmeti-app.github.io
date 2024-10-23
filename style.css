@@ -31,19 +31,22 @@ nav {
   justify-content: center;
   background-color: #1e1e1e;
   padding: 10px 0;
+  align-content: center;
 }
 
 /* Media query for smaller screens */
 @media (max-width: 600px) {
   nav {
     flex-direction: column;
-    padding: 5px 0;
+    padding: 1px 0;
+    align-content: center;
   }
 
   nav a {
     padding: 10px;
     text-align: center;
-    width: 100%;
+    width: 97%;
+    align-content: center;
   }
 
   header h1 {
@@ -54,10 +57,11 @@ nav {
 nav a {
   color: #f0f0f0;
   text-decoration: none;
-  margin: 0 5px;
+  margin: 1 5px;
   font-size: 18px;
   padding: 5px 10px;
   border-radius: 5px;
+  
 }
 
 nav a:hover {
@@ -334,6 +338,7 @@ canvas {
     align-items: flex-start;
     padding: 1px 5px;
     font-size: 1px;
+    ;
   }
 
   .navbar a {
