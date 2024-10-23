@@ -2,33 +2,38 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="manifest" href="manifest.json"/> 
+    <link rel="manifest" href="manifest.json" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta property="og:title" content="Cosmeti Skin Editor" />
     <meta property="og:type" content="website" />
-    <meta
-      property="og:url"
-      content="https://cosmeti.app"/>
+    <meta property="og:url" content="https://cosmeti.app" />
     <meta property="og:image" content="cosmeti.png" />
     <meta
       property="og:description"
-      content="This isn't your grandmas skin editor. Comseti is a fun and easy to use editor for Minecraft skins like no other."/>
-      <link rel="apple-touch-icon" href="cosmeti.png">
-<link rel="apple-touch-icon" sizes="152x152" href="cosmeti.png">
-<link rel="apple-touch-icon" sizes="180x180" href="cosmeti.png">
-<link rel="apple-touch-icon" sizes="167x167" href="cosmeti.png">
-<meta name="mobile-web-app-capable" content="yes">
-<link rel="apple-touch-startup-image" href="cosmeti.png">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+      content="This isn't your grandmas skin editor. Comseti is a fun and easy to use editor for Minecraft skins like no other."
+    />
+    <link rel="apple-touch-icon" href="cosmeti.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="cosmeti.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="cosmeti.png" />
+    <link rel="apple-touch-icon" sizes="167x167" href="cosmeti.png" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <link rel="apple-touch-startup-image" href="cosmeti.png" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
 
-<meta name="apple-mobile-web-app-title" content="cosmeti">
-<meta name="apple-mobile-web-app-capable" content="yes"/>
-    
-<meta name="theme-color" content="#ff66c3" />
+    <meta name="apple-mobile-web-app-title" content="cosmeti" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+
+    <meta name="theme-color" content="#ff66c3" />
     <link rel="icon" href="cosmeti.png" type="image/png" />
     <title>cosmeti - Character Customizer</title>
     <link rel="stylesheet" href="style.css" />
-    <script fetchpriority="high" src="node_modules/skinview3d/bundles/skinview3d.bundle.js"></script>
+    <script
+      fetchpriority="high"
+      src="node_modules/skinview3d/bundles/skinview3d.bundle.js"
+    ></script>
   </head>
   <body>
     <header>
@@ -36,7 +41,9 @@
     </header>
 
     <nav id="navbar">
-      <a class="navbar-item" href="jerryeatsbeans.github.io/dev/cosmeti">Editor</a>
+      <a class="navbar-item" href="jerryeatsbeans.github.io/dev/cosmeti"
+        >Editor</a
+      >
       <a class="navbar-item" href="https://discord.gg/uDQ4bBEBaM">Contribute</a>
       <a class="navbar-item" href="https://discord.gg/uDQ4bBEBaM">Artists</a>
       <a class="navbar-item" href="youtube.com">Tutorials</a>
@@ -52,8 +59,30 @@
           accept="image/png"
           style="display: none"
         />
-        <div class="drop-zone" id="dropZone" onclick="document.getElementById('skinFile').click();">
+        <div
+          class="drop-zone"
+          id="dropZone"
+          onclick="document.getElementById('skinFile').click();"
+        >
           Drag and drop your skin / Click to upload
+        </div>
+        <p class="templateText">
+          or <a href="#" id="viewTemplatesLink">click here</a> to view templates
+        </p>
+
+        <!-- Popup Modal for viewing templates -->
+        <div id="templateModal" class="modal">
+          <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div class="image-grid">
+              <img src="loading.png" alt="Loading..." />
+              <img src="loading.png" alt="Loading..." />
+              <img src="loading.png" alt="Loading..." />
+              <img src="loading.png" alt="Loading..." />
+              <img src="loading.png" alt="Loading..." />
+              <img src="loading.png" alt="Loading..." />
+            </div>
+          </div>
         </div>
 
         <input
@@ -66,7 +95,7 @@
         <div id="partList" class="hidden"></div>
 
         <div>
-          <button id="previewButton" class="hidden">
+          <button id="previewButton" class="preview-btn hidden">
             <img
               src="https://www.blockbench.net/images/logos/blockbench_logo_text.png"
               alt="Open Model with Blockbench"
@@ -81,7 +110,13 @@
           </button>
         </div>
         <canvas id="skinCanvas" class="hidden"></canvas>
-        <canvas id="skin_container" data-engine="three.js r142" width="400" height="700" style="touch-action: none; width: 200px; height: 350px;"></canvas>
+        <canvas
+          id="skin_container"
+          data-engine="three.js r142"
+          width="400"
+          height="700"
+          style="touch-action: none; width: 200px; height: 350px"
+        ></canvas>
         <iframe id="editor-frame" class="hidden"></iframe>
       </div>
     </div>

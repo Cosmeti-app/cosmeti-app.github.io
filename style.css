@@ -1,12 +1,12 @@
 @font-face {
-  font-family: 'Minecraft';
-  src: url('../node_modules/skinview3d/assets/minecraft.woff2') format('woff2');
+  font-family: "Minecraft";
+  src: url("../node_modules/skinview3d/assets/minecraft.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
 }
 
 body {
-  font-family: 'Minecraft', Arial, sans-serif;
+  font-family: "Minecraft", Arial, sans-serif;
   background: #2e2e2e;
   color: #f0f0f0;
   margin: 0;
@@ -61,7 +61,6 @@ nav a {
   font-size: 18px;
   padding: 5px 10px;
   border-radius: 5px;
-  
 }
 
 nav a:hover {
@@ -177,7 +176,7 @@ h2 {
   background-color: #1b1b1b;
   color: #f0f0f0;
   align-content: center;
-  font-family: 'Minecraft', Arial, sans-serif;
+  font-family: "Minecraft", Arial, sans-serif;
 }
 
 #previewButton {
@@ -309,8 +308,8 @@ canvas {
 }
 
 @font-face {
-  font-family: 'Minecraft';
-  src: url('node_modules/skinview3d/assets/minecraft.woff2') format('woff2');
+  font-family: "Minecraft";
+  src: url("node_modules/skinview3d/assets/minecraft.woff2") format("woff2");
 }
 
 /* Base styles for the navbar */
@@ -321,14 +320,12 @@ canvas {
   padding: 10px 20px;
   background-color: #333;
   color: #fff;
- 
 }
 
 .navbar a {
   color: #fff;
   text-decoration: none;
   padding: 10px;
- 
 }
 
 /* Mobile responsive styles */
@@ -338,7 +335,6 @@ canvas {
     align-items: flex-start;
     padding: 1px 5px;
     font-size: 1px;
-    ;
   }
 
   .navbar a {
@@ -354,7 +350,7 @@ canvas {
   background: linear-gradient(to right, #ffffff, #ffede0, #ffffff, #ffffff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  
+
   text-align: center;
 }
 
@@ -402,4 +398,71 @@ canvas {
 
 ::-webkit-scrollbar-corner {
   background: #f0f0f0; /* Background color of the scrollbar corner */
+}
+
+/* Modal styles */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 1; /* On top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.7); /* Black with transparency */
+}
+
+.modal-content {
+  background-color: #161616cb;
+  margin: 10% auto; /* 10% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Width is 80% of the viewport */
+  max-width: 600px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.close-btn {
+  color: #ffc107;
+  float: right;
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+  color: #5f0a3c;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Image grid */
+.image-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.image-grid img {
+  width: 25%; /* Two images per row */
+  height: auto;
+  border-radius: 5px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+@media screen and (max-width: 768px) {
+  .modal-content {
+    width: 30%;
+  }
+
+  .image-grid img {
+    width: 100%; /* Stack images on smaller screens */
+  }
+}
+
+a {
+  color: #f0f0f0;
 }
