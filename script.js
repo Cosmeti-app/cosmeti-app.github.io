@@ -315,7 +315,10 @@ document
   .getElementById("downloadButton")
   .addEventListener("click", downloadSkin);
 
-async function fetchClothingData() {
+
+
+// Function to filter and display parts based on search query
+async function fetchClothingData(query = "") {
   const selectedParts = new Set(); // Set to keep track of selected parts
 
   try {
@@ -334,46 +337,58 @@ async function fetchClothingData() {
       const author = part.c[4]?.v;
       const icon = part.c[1]?.v;
       const file = part.c[5]?.v; // Part PNG file
+      const tags = part.c[0]?.v;
 
       if (name && author && icon && file) {
-        const partItem = document.createElement("div");
-        partItem.classList.add("part-item");
-        partItem.innerHTML = `
-          <img src="${icon}" alt="${name}">
-          <div class="part-title">${name}</div>
-          <div class="part-author">${author}</div>
-          
-        `;
-        partList.appendChild(partItem);
+        // Filter parts based on search query
+        if (name.toLowerCase().includes(query.toLowerCase()) || author.toLowerCase().includes(query.toLowerCase())) {
+          const partItem = document.createElement("div");
+          partItem.classList.add("part-item");
+          partItem.innerHTML = `
+            <img src="${icon}" alt="${name}">
+            <div class="part-title">${name}</div>
+            <div class="part-author">${author}</div>
+          `;
+          partList.appendChild(partItem);
 
-        // On click, overlay the part onto the skin and update the selected parts
-        partItem.addEventListener("click", () => {
-          if (!skinUploaded) {
-            alert("Please upload a skin first.");
-            return;
-          }
+          // On click, overlay the part onto the skin and update the selected parts
+          partItem.addEventListener("click", () => {
+            if (!skinUploaded) {
+              alert("Please upload a skin first.");
+              return;
+            }
 
-          if (selectedParts.has(file)) {
-            // Unselect the part
-            partItem.classList.remove("selected");
-            selectedParts.delete(file);
+            if (selectedParts.has(file)) {
+              // Unselect the part
+              partItem.classList.remove("selected");
+              selectedParts.delete(file);
 
-            // Redraw the skin without the unselected part
-            redrawSkin();
-          } else {
-            // Select the part
-            overlayPartOnSkin(file);
-            partItem.classList.add("selected");
+              // Redraw the skin without the unselected part
+              redrawSkin();
+            } else {
+              // Select the part
+              overlayPartOnSkin(file);
+              partItem.classList.add("selected");
 
-            // Add the part to the set
-            selectedParts.add(file);
-          }
-        });
+              // Add the part to the set
+              selectedParts.add(file);
+            }
+          });
+        }
       }
     });
   } catch (error) {
     console.error("Error fetching clothing data:", error);
   }
+}
+
+// Add event listener to the search input field
+searchInput.addEventListener("input", (event) => {
+  const query = event.target.value;
+  fetchClothingData(query);
+});
+
+
 
   function redrawSkin() {
     // Clear the canvas
@@ -396,15 +411,16 @@ async function fetchClothingData() {
     // Update SkinViewer skin
     updateSkinViewer();
   }
-}
+
 
 fetchClothingData();
 
 // Preview button functionality: Opens Blockbench with the skin
 previewButton.addEventListener("click", () => {
   const skinDataURL = skinCanvas.toDataURL("image/png");
-  const blockbenchURL = `https://web.blockbench.net/?open=${skinDataURL}`;
-  window.open(blockbenchURL, '_blank');
+  editorFrame.classList.remove("hidden");
+  editorFrame.src = "https://web.blockbench.net/?open=${skinDataURL}";
+  editorFrame.style.display = "block";
 });
 
 // Ensure the DOM is fully loaded before handling file uploads
