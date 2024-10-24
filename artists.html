@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="manifest" href="manifest.json" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property="og:title" content="Cosmeti Skin Editor" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://cosmeti.app" />
+    <meta property="og:image" content="cosmeti.png" />
+    <meta
+      property="og:description"
+      content="This isn't your grandmas skin editor. Comseti is a fun and easy to use editor for Minecraft skins like no other."
+    />
+    <link rel="apple-touch-icon" href="cosmeti.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="cosmeti.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="cosmeti.png" />
+    <link rel="apple-touch-icon" sizes="167x167" href="cosmeti.png" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <link rel="apple-touch-startup-image" href="cosmeti.png" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+
+    <meta name="apple-mobile-web-app-title" content="cosmeti" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+
+    <meta name="theme-color" content="#ff66c3" />
+    <link rel="icon" href="cosmeti.png" type="image/png" />
+    <title>cosmeti - Character Customizer</title>
+    <link rel="stylesheet" href="style.css" />
+    <script
+      fetchpriority="high"
+      src="node_modules/skinview3d/bundles/skinview3d.bundle.js"
+    ></script>
+  </head>
+  <body>
+    <header>
+      <div class="animate-gradient-text">Cosmeti</div>
+    </header>
+
+    <nav id="navbar">
+      <a class="navbar-item" href="/index.html"
+        >Editor</a
+      >
+      <a class="navbar-item" href="https://discord.gg/uDQ4bBEBaM">Contribute</a>
+      <a class="navbar-item" href="/artists">Artists</a>
+      <a class="navbar-item" href="youtube.com">Tutorials</a>
+    </nav>
+
+    <div class="container">
+      <div class="content">
+        <h2>Constributing Artist Stats</h2>
+
+        <div id="authorList" class="author-list"></div>
+
+
+
+    <script src="https://unpkg.com/skinview3d@3.1.0/dist/skinview3d.min.js"></script>
+    <script src="script.js"></script>
+    <script>
+        async function fetchAuthorData() {
+  try {
+    const response = await fetch(
+      "https://docs.google.com/spreadsheets/d/1sEQPiqXHtTt6RHwgAXYKnmMlBYn-v7oPUKHT3UK3c8I/gviz/tq?tqx=out:json"
+    );
+    const data = await response.text();
+    const jsonData = JSON.parse(data.match(/.*?({.*}).*/)[1]); // Extract JSON safely
+
+    const clothingParts = jsonData.table.rows;
+
+    const authorCounts = {};
+
+    clothingParts.forEach((part) => {
+      const author = part.c[4]?.v;
+      if (author) {
+        if (authorCounts[author]) {
+          authorCounts[author]++;
+        } else {
+          authorCounts[author] = 1;
+        }
+      }
+    });
+
+    const authorList = document.getElementById("authorList");
+    authorList.innerHTML = "";
+
+    Object.keys(authorCounts).forEach((author) => {
+      const authorItem = document.createElement("div");
+      authorItem.classList.add("author-item");
+      authorItem.innerHTML = `
+        <div class="author-name">${author}</div>
+        <div class="author-count">${authorCounts[author]}</div>
+      `;
+      authorList.appendChild(authorItem);
+    });
+  } catch (error) {
+    console.error("Error fetching author data:", error);
+  }
+}
+fetchAuthorData();
+    </script>
+  </body>
+</html>

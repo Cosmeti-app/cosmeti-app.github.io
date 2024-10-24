@@ -5,6 +5,8 @@
   font-style: normal;
 }
 
+
+
 body {
   font-family: "Minecraft", Arial, sans-serif;
   background: #2e2e2e;
@@ -465,4 +467,34 @@ canvas {
 
 a {
   color: #f0f0f0;
+}
+
+.author-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.author-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #414141;
+  border-radius: 5px;
+  background-color: #161616;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.author-name {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.author-count {
+  background-color: #5f073a8f;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 3px;
 }

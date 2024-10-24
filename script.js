@@ -342,6 +342,7 @@ async function fetchClothingData() {
           <img src="${icon}" alt="${name}">
           <div class="part-title">${name}</div>
           <div class="part-author">${author}</div>
+          
         `;
         partList.appendChild(partItem);
 
@@ -402,9 +403,8 @@ fetchClothingData();
 // Preview button functionality: Opens Blockbench with the skin
 previewButton.addEventListener("click", () => {
   const skinDataURL = skinCanvas.toDataURL("image/png");
-  editorFrame.classList.remove("hidden");
-  editorFrame.src = "https://web.blockbench.net/?open=${skinDataURL}";
-  editorFrame.style.display = "block";
+  const blockbenchURL = `https://web.blockbench.net/?open=${skinDataURL}`;
+  window.open(blockbenchURL, '_blank');
 });
 
 // Ensure the DOM is fully loaded before handling file uploads
