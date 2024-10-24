@@ -341,7 +341,11 @@ async function fetchClothingData(query = "") {
 
       if (name && author && icon && file) {
         // Filter parts based on search query
-        if (name.toLowerCase().includes(query.toLowerCase()) || author.toLowerCase().includes(query.toLowerCase())) {
+        if (
+          name.toLowerCase().includes(query.toLowerCase()) ||
+          author.toLowerCase().includes(query.toLowerCase()) ||
+          (tags && tags.toLowerCase().includes(query.toLowerCase()))
+        ) {
           const partItem = document.createElement("div");
           partItem.classList.add("part-item");
           partItem.innerHTML = `
