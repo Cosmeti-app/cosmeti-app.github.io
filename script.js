@@ -243,6 +243,7 @@ function handleFileUpload(file) {
       partList.classList.remove("hidden");
       previewButton.classList.remove("hidden");
       downloadButton.classList.remove("hidden");
+      mcsc-btn.classList.remove("hidden"); // Reveal mcscButton
       document.querySelector(".drop-zone").classList.add("hidden");
       document.querySelector(".templateText").classList.add("hidden");
 
@@ -748,3 +749,15 @@ window.onclick = function (event) {
     modal.style.display = "none";
   }
 };
+
+document.addEventListener("DOMContentLoaded", function () {
+  // Existing code...
+
+  // Add event listener for mcscButton
+  const mcscButton = document.getElementById("mcscButton");
+  mcscButton.addEventListener("click", function () {
+    // Implement the functionality similar to Blockbench preview button
+    alert("MC Skin Converter button clicked!");
+    // Add your specific functionality here
+  });
+});
