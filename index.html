@@ -41,9 +41,7 @@
     </header>
 
     <nav id="navbar">
-      <a class="navbar-item" href="/index.html"
-        >Editor</a
-      >
+      <a class="navbar-item" href="/index.html">Editor</a>
       <a class="navbar-item" href="https://discord.gg/uDQ4bBEBaM">Contribute</a>
       <a class="navbar-item" href="/artists.html">Artists</a>
       <a class="navbar-item" href="youtube.com">Tutorials</a>
@@ -85,11 +83,7 @@
           </div>
         </div>
 
-        <input
-  type="text"
-  id="searchInput"
-  placeholder="Search parts..."
-/>
+        <input type="text" id="searchInput" placeholder="Search parts..." />
 
         <div id="partList" class="hidden"></div>
 
@@ -104,8 +98,8 @@
           <button id="downloadButton" class="download-btn hidden">
             Download
           </button>
-          <button id="reloadButton" class="reload-btn hidden">
-            Reload Page (Undo Changes)
+          <button id="reloadButton" class="reload-btn">
+            Reload (Undo Changes)
           </button>
         </div>
         <canvas id="skinCanvas" class="hidden"></canvas>
@@ -116,15 +110,27 @@
           height="700"
           style="touch-action: none; width: 200px; height: 350px"
         ></canvas>
-        
       </div>
     </div>
 
     <footer>
-      <p>
-        &copy; Cosmeti is not affiliated with Mojang or Blockbench. All rights
-        Reserved
-      </p>
+      <p>&copy; Cosmeti is not affiliated with Mojang. All rights. Reserved</p>
+      <p>Recommended Skin Design Tools:</p>
+      <ul>
+        <p>
+          <a href="https://web.blockbench.net/" target="_blank"
+            >Blockbench Editor</a
+          >
+        </p>
+        <p>
+          <a href="https://namemc.com/" target="_blank">NameMC Skin Grabber</a>
+        </p>
+        <p>
+          <a href="https://util.gflash.eu/mcskinconverter/" target="_blank"
+            >Skin Size Converter</a
+          >
+        </p>
+      </ul>
     </footer>
 
     <script src="https://unpkg.com/skinview3d@3.1.0/dist/skinview3d.min.js"></script>
