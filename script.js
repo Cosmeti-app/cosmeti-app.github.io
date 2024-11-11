@@ -127,11 +127,6 @@ function redrawSkin() {
   // Clear the canvas
   ctx.clearRect(0, 0, skinCanvas.width, skinCanvas.height);
 
-  // Debugging logs
-  console.log("Redrawing skin...");
-  console.log("Uploaded skin:", uploadedSkin);
-  console.log("Selected parts:", selectedParts);
-
   // Draw the uploaded skin first
   if (uploadedSkin) {
     ctx.drawImage(uploadedSkin, 0, 0);
