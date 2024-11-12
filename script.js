@@ -283,11 +283,19 @@ async function fetchTemplateImages() {
   }
 }
 
-function downloadTemplate(url) {
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = "Cosmeti-Template.png";
-  link.click();
+async function downloadTemplate(url) {
+  try {
+    const response = await fetch(url);
+    const blob = await response.blob();
+    const blobUrl = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = blobUrl;
+    link.download = "Cosmeti-Template.png";
+    link.click();
+    URL.revokeObjectURL(blobUrl); // Clean up the URL object
+  } catch (error) {
+    console.error("Error downloading template:", error);
+  }
 }
 
 function unselectPart(partUrl) {
