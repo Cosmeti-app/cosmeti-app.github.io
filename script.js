@@ -177,8 +177,31 @@ function downloadSkin() {
 
 elements.downloadButton.addEventListener("click", downloadSkin);
 
+async function fetchAuthorLinks() {
+  try {
+    const response = await fetch(
+      "https://docs.google.com/spreadsheets/d/1sEQPiqXHtTt6RHwgAXYKnmMlBYn-v7oPUKHT3UK3c8I/gviz/tq?sheet=AuthorData&tqx=out:json"
+    );
+    const data = await response.text();
+    const jsonData = JSON.parse(data.match(/.*?({.*}).*/)[1]);
+    const authorLinks = {};
+    jsonData.table.rows.forEach((row) => {
+      const author = row.c[0]?.v;
+      const link = row.c[1]?.v;
+      if (author && link) {
+        authorLinks[author] = link;
+      }
+    });
+    return authorLinks;
+  } catch (error) {
+    console.error("Error fetching author links:", error);
+    return {};
+  }
+}
+
 async function fetchClothingData(query = "") {
   try {
+    const authorLinks = await fetchAuthorLinks();
     const response = await fetch(
       "https://docs.google.com/spreadsheets/d/1sEQPiqXHtTt6RHwgAXYKnmMlBYn-v7oPUKHT3UK3c8I/gviz/tq?tqx=out:json"
     );
@@ -195,7 +218,8 @@ async function fetchClothingData(query = "") {
       if (name && author && icon && file && (name.toLowerCase().includes(query.toLowerCase()) || author.toLowerCase().includes(query.toLowerCase()) || (tags && tags.toLowerCase().includes(query.toLowerCase())))) {
         const partItem = document.createElement("div");
         partItem.classList.add("part-item");
-        partItem.innerHTML = `<img src="${icon}" alt="${name}"><div class="part-title">${name}</div><div class="part-author">${author}</div>`;
+        const authorLink = authorLinks[author] || "#";
+        partItem.innerHTML = `<img src="${icon}" alt="${name}"><div class="part-title">${name}</div><div class="part-author"><a href="${authorLink}" target="_blank">${author}</a></div>`;
         elements.partList.appendChild(partItem);
         partItem.addEventListener("click", () => {
           if (!skinUploaded) {
