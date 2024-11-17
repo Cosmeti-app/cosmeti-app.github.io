@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="manifest" href="manifest.json" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property="og:title" content="Cosmeti Skin Editor" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://cosmeti.app" />
+    <meta property="og:image" content="cosmeti.png" />
+    <meta
+      property="og:description"
+      content="This isn't your grandmas skin editor. Comseti is a fun and easy to use editor for Minecraft skins like no other."
+    />
+    <link rel="apple-touch-icon" href="cosmeti.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="cosmeti.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="cosmeti.png" />
+    <link rel="apple-touch-icon" sizes="167x167" href="cosmeti.png" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <link rel="apple-touch-startup-image" href="cosmeti.png" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+
+    <meta name="apple-mobile-web-app-title" content="cosmeti" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+
+    <meta name="theme-color" content="#ff66c3" />
+    <link rel="icon" href="cosmeti.png" type="image/png" />
+    <title>Cosmeti Editor</title>
+    <link rel="stylesheet" href="style.css" />
+    <script
+      fetchpriority="high"
+      src="node_modules/skinview3d/bundles/skinview3d.bundle.js"
+    ></script>
+  </head>
+  <body>
+    <header>
+      <div class="animate-gradient-text">Cosmeti</div>
+    </header>
+
+    <nav id="navbar">
+      <a class="navbar-item" href="/index.html">Editor</a>
+      <a class="navbar-item" href="https://discord.gg/uDQ4bBEBaM">Contribute</a>
+      <a class="navbar-item" href="/artists.html">Artists</a>
+      <a class="navbar-item" href="youtube.com">Tutorials</a>
+    </nav>
+
+    <div class="container">
+      <div class="content">
+        <h2>404: Page Not Found</h2>
+        <p id="error-message"></p>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/skinview3d@3.1.0/dist/skinview3d.min.js"></script>
+    <script src="script.js"></script>
+    <script>
+      const messages = [
+        "Oops! This page is as empty as the void.",
+        "Uh-oh! Looks like you've hit bedrock.",
+        "404! This page is lost in the Nether and can't find the portal.",
+        "Yikes! This page despawned faster than your loot after a creeper explosion.",
+        "This page poofed away like an Enderman in the rain!",
+        "Eek! This page vanished faster than a phantom in daylight.",
+        "Sorry! This page is more out of place than a piglin in the Overworld.",
+        "This page is more broken than your failed creeper farm!" 
+      ];
+
+      function displayRandomMessage() {
+        const randomIndex = Math.floor(Math.random() * messages.length);
+        document.getElementById('error-message').innerText = messages[randomIndex];
+      }
+
+      displayRandomMessage();
+
+      
+    </script>
+    
+<style>
+    p {
+        text-align: center;
+    }
+</style>
+
+  </body>
+</html>
