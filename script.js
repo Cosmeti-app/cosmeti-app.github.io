@@ -218,8 +218,14 @@ async function fetchClothingData(query = "") {
       if (name && author && icon && file && (name.toLowerCase().includes(query.toLowerCase()) || author.toLowerCase().includes(query.toLowerCase()) || (tags && tags.toLowerCase().includes(query.toLowerCase())))) {
         const partItem = document.createElement("div");
         partItem.classList.add("part-item");
-        const authorLink = authorLinks[author] || "#";
-        partItem.innerHTML = `<img src="${icon}" alt="${name}"><div class="part-title">${name}</div><div class="part-author"><a href="${authorLink}" target="_blank">${author}</a></div>`;
+        let authorHtml;
+        if (author === "Partner") {
+          authorHtml = `<div class="part-author" style="color: yellow;">${author}</div>`;
+        } else {
+          const authorLink = authorLinks[author] || "#";
+          authorHtml = `<div class="part-author"><a href="${authorLink}" target="_blank">${author}</a></div>`;
+        }
+        partItem.innerHTML = `<img src="${icon}" alt="${name}"><div class="part-title">${name}</div>${authorHtml}`;
         elements.partList.appendChild(partItem);
         partItem.addEventListener("click", () => {
           if (!skinUploaded) {
