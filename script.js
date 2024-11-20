@@ -199,15 +199,43 @@ async function fetchAuthorLinks() {
   }
 }
 
+// Utility functions for caching
+function saveToCache(key, data) {
+  const expirationTime = Date.now() + 7 * 24 * 60 * 60 * 1000; // 1 week in milliseconds
+  const cacheData = { data, expirationTime };
+  localStorage.setItem(key, JSON.stringify(cacheData));
+}
+
+function getFromCache(key) {
+  const cacheData = JSON.parse(localStorage.getItem(key));
+  if (cacheData && cacheData.expirationTime > Date.now()) {
+    return cacheData.data;
+  } else {
+    localStorage.removeItem(key);
+    return null;
+  }
+}
+
+// Modified fetchClothingData function
 async function fetchClothingData(query = "") {
   try {
     const authorLinks = await fetchAuthorLinks();
-    const response = await fetch(
-      "https://docs.google.com/spreadsheets/d/1sEQPiqXHtTt6RHwgAXYKnmMlBYn-v7oPUKHT3UK3c8I/gviz/tq?tqx=out:json"
-    );
-    const data = await response.text();
-    const jsonData = JSON.parse(data.match(/.*?({.*}).*/)[1]);
-    const clothingParts = jsonData.table.rows;
+    const cacheKey = `clothingData_${query}`;
+    let clothingParts;
+
+    const cachedData = getFromCache(cacheKey);
+    if (cachedData) {
+      clothingParts = cachedData;
+    } else {
+      const response = await fetch(
+        "https://docs.google.com/spreadsheets/d/1sEQPiqXHtTt6RHwgAXYKnmMlBYn-v7oPUKHT3UK3c8I/gviz/tq?tqx=out:json"
+      );
+      const data = await response.text();
+      const jsonData = JSON.parse(data.match(/.*?({.*}).*/)[1]);
+      clothingParts = jsonData.table.rows;
+      saveToCache(cacheKey, clothingParts);
+    }
+
     elements.partList.innerHTML = "";
     clothingParts.forEach((part) => {
       const name = part.c[3]?.v;
@@ -282,16 +310,27 @@ window.onclick = (event) => {
   if (event.target == elements.modal) {
     elements.modal.style.display = "none";
   }
-};
+}
 
+// Modified fetchTemplateImages function
 async function fetchTemplateImages() {
   try {
-    const response = await fetch(
-      "https://docs.google.com/spreadsheets/d/1sEQPiqXHtTt6RHwgAXYKnmMlBYn-v7oPUKHT3UK3c8I/gviz/tq?sheet=SkinTemplates&tqx=out:json"
-    );
-    const data = await response.text();
-    const jsonData = JSON.parse(data.match(/.*?({.*}).*/)[1]);
-    const templateImages = jsonData.table.rows;
+    const cacheKey = "templateImages";
+    let templateImages;
+
+    const cachedData = getFromCache(cacheKey);
+    if (cachedData) {
+      templateImages = cachedData;
+    } else {
+      const response = await fetch(
+        "https://docs.google.com/spreadsheets/d/1sEQPiqXHtTt6RHwgAXYKnmMlBYn-v7oPUKHT3UK3c8I/gviz/tq?sheet=SkinTemplates&tqx=out:json"
+      );
+      const data = await response.text();
+      const jsonData = JSON.parse(data.match(/.*?({.*}).*/)[1]);
+      templateImages = jsonData.table.rows;
+      saveToCache(cacheKey, templateImages);
+    }
+
     elements.imageGrid.innerHTML = "";
     templateImages.forEach((row) => {
       const imageUrl = row.c[0]?.v;
