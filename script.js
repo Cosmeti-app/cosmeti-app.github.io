@@ -378,3 +378,10 @@ elements.partList.addEventListener("click", (event) => {
     unselectPart(part);
   }
 });
+
+document.addEventListener("keydown", (event) => {
+  if (event.ctrlKey && event.shiftKey && event.key === "R") {
+    localStorage.clear();
+    location.reload();
+  }
+});
