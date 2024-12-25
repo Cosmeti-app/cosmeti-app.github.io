@@ -496,3 +496,15 @@ a {
   padding: 5px 10px;
   border-radius: 3px;
 }
+
+#toggleView {
+  margin-top: 20px;
+  padding: 10px;
+  width: 9%;
+  border: 1px solid #ffc107;
+  border-radius: 5px;
+  background-color: #1b1b1b;
+  color: #f0f0f0;
+  align-content: center;
+  font-family: "Minecraft", Arial, sans-serif;
+}

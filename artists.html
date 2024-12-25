@@ -64,46 +64,63 @@
     <script src="https://unpkg.com/skinview3d@3.1.0/dist/skinview3d.min.js"></script>
     <script src="script.js"></script>
     <script>
-        async function fetchAuthorData() {
-  try {
-    const response = await fetch(
-      "https://docs.google.com/spreadsheets/d/1sEQPiqXHtTt6RHwgAXYKnmMlBYn-v7oPUKHT3UK3c8I/gviz/tq?tqx=out:json"
-    );
-    const data = await response.text();
-    const jsonData = JSON.parse(data.match(/.*?({.*}).*/)[1]); // Extract JSON safely
+  async function fetchAuthorData() {
+    try {
+      const response = await fetch(
+        "https://docs.google.com/spreadsheets/d/1sEQPiqXHtTt6RHwgAXYKnmMlBYn-v7oPUKHT3UK3c8I/gviz/tq?tqx=out:json"
+      );
+      const data = await response.text();
+      const jsonData = JSON.parse(data.match(/.*?({.*}).*/)[1]); // Extract JSON safely
 
-    const clothingParts = jsonData.table.rows;
+      const clothingParts = jsonData.table.rows;
 
-    const authorCounts = {};
+      const authorCounts = {};
 
-    clothingParts.forEach((part) => {
-      const author = part.c[4]?.v;
-      if (author) {
-        if (authorCounts[author]) {
-          authorCounts[author]++;
-        } else {
-          authorCounts[author] = 1;
+      clothingParts.forEach((part) => {
+        const author = part.c[4]?.v;
+        if (author) {
+          if (authorCounts[author]) {
+            authorCounts[author]++;
+          } else {
+            authorCounts[author] = 1;
+          }
         }
-      }
-    });
+      });
 
-    const authorList = document.getElementById("authorList");
-    authorList.innerHTML = "";
+      const authorLinksResponse = await fetch(
+        "https://docs.google.com/spreadsheets/d/1sEQPiqXHtTt6RHwgAXYKnmMlBYn-v7oPUKHT3UK3c8I/gviz/tq?sheet=AuthorData&tqx=out:json"
+      );
+      const authorLinksData = await authorLinksResponse.text();
+      const authorLinksJson = JSON.parse(authorLinksData.match(/.*?({.*}).*/)[1]);
+      const authorLinks = {};
 
-    Object.keys(authorCounts).forEach((author) => {
-      const authorItem = document.createElement("div");
-      authorItem.classList.add("author-item");
-      authorItem.innerHTML = `
-        <div class="author-name">${author}</div>
-        <div class="author-count">${authorCounts[author]}</div>
-      `;
-      authorList.appendChild(authorItem);
-    });
-  } catch (error) {
-    console.error("Error fetching author data:", error);
+      authorLinksJson.table.rows.forEach((row) => {
+        const author = row.c[0]?.v;
+        const link = row.c[1]?.v;
+        if (author && link) {
+          authorLinks[author] = link;
+        }
+      });
+
+      const authorList = document.getElementById("authorList");
+      authorList.innerHTML = "";
+
+      Object.keys(authorCounts).forEach((author) => {
+        const authorItem = document.createElement("div");
+        authorItem.classList.add("author-item");
+        const authorLink = authorLinks[author] || "#";
+        authorItem.innerHTML = `
+          <div class="author-name"><a href="${authorLink}" target="_blank">${author}</a></div>
+          <div class="author-count">${authorCounts[author]}</div>
+        `;
+        authorList.appendChild(authorItem);
+      });
+    } catch (error) {
+      console.error("Error fetching author data:", error);
+    }
   }
-}
-fetchAuthorData();
-    </script>
+
+  fetchAuthorData();
+</script>
   </body>
 </html>

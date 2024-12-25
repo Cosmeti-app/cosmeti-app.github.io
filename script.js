@@ -13,7 +13,25 @@ const elements = {
   link: document.getElementById("viewTemplatesLink"),
   closeBtn: document.getElementsByClassName("close-btn")[0],
   imageGrid: document.querySelector(".image-grid"),
+  toggleView: document.getElementById("toggleView"),
 };
+
+
+elements.toggleView.addEventListener("change", () => {
+  filterPartsByView();
+});
+
+function filterPartsByView() {
+  const view = elements.toggleView.value;
+  document.querySelectorAll(".part-item").forEach((partItem) => {
+    const partTitle = partItem.querySelector(".part-title").textContent;
+    if ((view === "wide" && partTitle.includes("Slim")) || (view === "slim" && partTitle.includes("Wide"))) {
+      partItem.style.display = "none";
+    } else {
+      partItem.style.display = "block";
+    }
+  });
+}
 
 const ctx = elements.skinCanvas.getContext("2d");
 let uploadedSkin = null;
@@ -222,18 +240,26 @@ async function fetchClothingData(query = "") {
     const authorLinks = await fetchAuthorLinks();
     const cacheKey = `clothingData_${query}`;
     let clothingParts;
+    filterPartsByView();
 
+    // Fetch the latest clothing data from the server
+    const response = await fetch(
+      "https://docs.google.com/spreadsheets/d/1sEQPiqXHtTt6RHwgAXYKnmMlBYn-v7oPUKHT3UK3c8I/gviz/tq?tqx=out:json"
+    );
+    const data = await response.text();
+    const jsonData = JSON.parse(data.match(/.*?({.*}).*/)[1]);
+    const latestClothingParts = jsonData.table.rows;
+
+    // Get the cached data
     const cachedData = getFromCache(cacheKey);
-    if (cachedData) {
-      clothingParts = cachedData;
+
+    // Compare the latest data with the cached data
+    if (JSON.stringify(latestClothingParts) !== JSON.stringify(cachedData)) {
+      // Update local storage if there are new skins
+      saveToCache(cacheKey, latestClothingParts);
+      clothingParts = latestClothingParts;
     } else {
-      const response = await fetch(
-        "https://docs.google.com/spreadsheets/d/1sEQPiqXHtTt6RHwgAXYKnmMlBYn-v7oPUKHT3UK3c8I/gviz/tq?tqx=out:json"
-      );
-      const data = await response.text();
-      const jsonData = JSON.parse(data.match(/.*?({.*}).*/)[1]);
-      clothingParts = jsonData.table.rows;
-      saveToCache(cacheKey, clothingParts);
+      clothingParts = cachedData;
     }
 
     elements.partList.innerHTML = "";
